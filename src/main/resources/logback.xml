@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+
+	<property name="USER_HOME" value=".log" />
+	<timestamp key="bySecond" datePattern="ddMMHHmmss" />
+
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n
+			</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+
+	<appender name="FILE-ENGINE"
+		class="ch.qos.logback.core.FileAppender">
+		<file>E:/LogFiles/testLog/emailLogfile${bySecond}.log</file>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] - %msg%n</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>ACCEPT</onMismatch>
+		</filter>
+	</appender>
+	
+	
+	<appender name="FILEROLLER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <!-- Monthly rollover -->
+      <fileNamePattern>../logs/Enqiry-Call-logs/%d{yyyy/MM}/Enqiry-App-Logfile.log</fileNamePattern>
+
+      <!-- keep 6 month's worth of history capped at 3GB total size -->
+      <maxHistory>6</maxHistory>
+      <totalSizeCap>3GB</totalSizeCap>
+
+    </rollingPolicy>
+
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm, IST} [%thread] %-5level %logger - %msg%n</pattern>
+    </encoder>
+  </appender> 
+	
+	<logger name="com.xworkz.ombn" level="ALL" additivity="false">
+		<appender-ref ref="FILEROLLER" />
+		<appender-ref ref="STDOUT" />
+	</logger>
+
+	<root level="ALL">
+	    <appender-ref ref="FILEROLLER" />
+		<appender-ref ref="STDOUT" />
+	</root>
+
+</configuration>

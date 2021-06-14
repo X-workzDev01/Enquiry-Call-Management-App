@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd">
+
+	<context:component-scan base-package="com.xworkz.enquiryAndCallManagement" />
+
+	<mvc:annotation-driven />
+	<task:annotation-driven />
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	</bean>
+
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+     
+    <bean id="templateResolver" class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
+    <property name="prefix" value="classpath:/templates/" />
+    <property name="suffix" value=".html" />
+    <property name="templateMode" value="HTML"/>
+</bean>
+
+<bean id="templateEngine"
+      class="org.thymeleaf.spring5.SpringTemplateEngine">
+  <property name="templateResolver" ref="templateResolver" />
+  <property name="enableSpringELCompiler" value="true" />
+</bean>
+
+	<bean class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"
+		id="localSessionFactoryBean">
+		<property name="dataSource" ref="driverManagerDataSource"></property>
+		<property name="packagesToScan" value="com.xworkz.enquiryAndCallManagement.entity"/>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+				<prop key="hbm2ddl.auto">update</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+				<prop key="hibernate.show_sql">true</prop>
+		 </props>
+		</property>
+	</bean>
+	
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+		id="propertyPlaceholderConfigurer">
+		<property name="ignoreUnresolvablePlaceholders" value="true"/>
+		<property name="locations">
+		<list>
+		    <value>/WEB-INF/classes/prop/mailChimp.properties</value>
+			<value>WEB-INF/classes/prop/database.properties</value>
+			<value>/WEB-INF/classes/prop/httpConnection.properties</value>	
+		</list>
+		</property>
+	</bean> 
+
+	<bean
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		id="driverManagerDataSource">
+		<constructor-arg
+			value="${driverManagerDataSource.url}" />
+		<constructor-arg
+			value="${driverManagerDataSource.user}" />
+		<constructor-arg
+			value="${driverManagerDataSource.pass}" />
+		<property name="driverClassName"
+			value="${driverManagerDataSource.className}" />
+	</bean>
+
+</beans>
