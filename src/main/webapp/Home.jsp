@@ -14,9 +14,10 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous">
-	
+
 <link rel="stylesheet" type="text/css" href="./css/index.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 <link
@@ -33,16 +34,17 @@
 	rel="stylesheet">
 <style type="text/css">
 ul {
-  list-style-type: none;
-  }
-  li {
-  float: left;
+	list-style-type: none;
+}
+
+li {
+	float: left;
 }
 
 li button {
-  display: block;
-  padding: 16px;
-  margin: 5px;
+	display: block;
+	padding: 16px;
+	margin: 5px;
 }
 }
 </style>
@@ -58,28 +60,30 @@ li button {
 			</div>
 			<div style="align-items: flex-end; width: 8%;">
 				<button onclick="location.href='EnquiryLogin.jsp'" type="button"
-					class="btn btn-danger btn-block"><i class="fa fa-sign-out" aria-hidden="true"></i> Log Out</button>
+					class="btn btn-danger btn-block">
+					<i class="fa fa-sign-out" aria-hidden="true"></i> Log Out
+				</button>
 			</div>
 		</div>
-		
+
 		<div class="container">
-				<div>
-					<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-						
-						<div class="collapse navbar-collapse" id="navbarsExample04">
-					      <ul class="navbar-nav mr-auto">
-						    <li class="nav-item"><a class="nav-link" href="#"
-							onclick="clickFunc('enquiryManagement')">Enquiry Management</a></li>
-						
-						    <li class="nav-item"><a class="nav-link" href="#"
-							onclick="clickFunc('callManagement')">Call Management</a></li>
-					      </ul>
-				        </div>
-					</nav>
-				</div>
-				
-				<div class="container" align="center">
-				   <div class="row"
+			<div>
+				<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+
+					<div class="collapse navbar-collapse" id="navbarsExample04">
+						<ul class="navbar-nav mr-auto">
+							<li class="nav-item"><a class="nav-link" href="#"
+								onclick="clickFunc('enquiryManagement')">Enquiry Management</a></li>
+
+							<li class="nav-item"><a class="nav-link" href="#"
+								onclick="clickFunc('callManagement')">Call Management</a></li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+
+			<div class="container" align="center">
+				<div class="row"
 					style="color: white; text-align: center; margin-top: 2%">
 					<div class="col-md-3"></div>
 					<div class="col-md-6">
@@ -88,38 +92,67 @@ li button {
 						</h3>
 					</div>
 					<div class="col-md-3"></div>
-				    </div>
-			     </div>
-			     
-			 <div class="container container_border ">
+				</div>
+			</div>
+
+			<div class="container container_border ">
 				<div class="enquiryManagement" style="margin-bottom: 10%;">
 					<h2 align="center"
 						style="margin-top: 5%; color: white; padding-top: 3%">Enquiry
 						Management</h2>
 					<div class="panel panel-default">
-						<div class="panel-body" align="center" style="margin-left: 20%;">						
-						    <ul>
-						      <li><button type="button" class="btn btn-primary" onclick="openkFunc('enquiryManagement','newEnquiry')"><i class="fa fa-file-text-o" aria-hidden="true"></i> New Enquiry</button></li>
-						      <li><button type="button" class="btn btn-success" onclick="openkFunc('enquiryManagement','uploadEnquiry')"><i class="fa fa-cloud-upload" aria-hidden="true"></i> Upload Enquires</button></li>
-						      <li><button type="submit" class="btn btn-info" onclick="location.href='ViewEnquiry.jsp'"><!-- <i class="fa fa-eye" aria-hidden="true"> </i>--> View Enquires</button></li>
-						      <li><button type="button" class="btn btn-light" onclick="openkFunc('enquiryManagement','getCloudEnquiries')"><i class="fa fa-refresh" aria-hidden="true"></i> Sync Enquires</button></li>   
-						    </ul>						
+						<div class="panel-body" align="center" style="margin-left: 20%;">
+							<ul>
+								<li><button type="button" class="btn btn-primary"
+										onclick="openkFunc('enquiryManagement','newEnquiry')">
+										<i class="fa fa-file-text-o" aria-hidden="true"></i> New
+										Enquiry
+									</button></li>
+								<li><button type="button" class="btn btn-success"
+										onclick="openkFunc('enquiryManagement','uploadEnquiry')">
+										<i class="fa fa-cloud-upload" aria-hidden="true"></i> Upload
+										Enquires
+									</button></li>
+								<li><form action="getLatestEnquiries.do" method="post">
+										<button type="submit" class="btn btn-info">
+											<i class="fa fa-eye" aria-hidden="true"> </i> View Enquires
+										</button></li>
+								</form>
+
+								<li><button type="button" class="btn btn-light"
+										onclick="openkFunc('enquiryManagement','getCloudEnquiries')">
+										<i class="fa fa-refresh" aria-hidden="true"></i> Sync Enquires
+									</button></li>
+							</ul>
 						</div>
 					</div>
 				</div>
-	
+
 				<div class="callManagement">
 					<h2 align="center"
 						style="margin-top: 5%; color: white; padding-top: 3%">Call
 						Management</h2>
 					<div class="panel panel-default">
-						<div class="panel-body" align="center" style="margin-top: 2%;margin-left: 20%;">
+						<div class="panel-body" align="center"
+							style="margin-top: 2%; margin-left: 20%;">
 							<ul>
-						      <li><button type="button" class="btn btn-primary" onclick="openkFunc('callManagement','newEnquiry')"><i class="fa fa-file-text-o" aria-hidden="true"></i> New Calls</button></li>
-						      <li><button type="button" class="btn btn-success" onclick="openkFunc('callManagement','uploadEnquiry')"><i class="fa fa-clock-o" aria-hidden="true"></i> Pending Calls</button></li>
-						      <li><button type="button" class="btn btn-info" onclick="openkFunc('callManagement','getlatestEnquiries')"><i class="fa fa-eye" aria-hidden="true"></i> View All Calls</button></li>
-						      <li><button type="button" class="btn btn-light" onclick="openkFunc('callManagement','getCloudEnquiries')"><i class="fa fa-upload" aria-hidden="true"></i> Upload Calls</button></li>   
-						    </ul>	
+								<li><button type="button" class="btn btn-primary"
+										onclick="openkFunc('callManagement','newEnquiry')">
+										<i class="fa fa-file-text-o" aria-hidden="true"></i> New Calls
+									</button></li>
+								<li><button type="button" class="btn btn-success"
+										onclick="openkFunc('callManagement','uploadEnquiry')">
+										<i class="fa fa-clock-o" aria-hidden="true"></i> Pending Calls
+									</button></li>
+								<li><button type="button" class="btn btn-info"
+										onclick="openkFunc('callManagement','getlatestEnquiries')">
+										<i class="fa fa-eye" aria-hidden="true"></i> View All Calls
+									</button></li>
+								<li><button type="button" class="btn btn-light"
+										onclick="openkFunc('callManagement','getCloudEnquiries')">
+										<i class="fa fa-upload" aria-hidden="true"></i> Upload Calls
+									</button></li>
+							</ul>
 						</div>
 					</div>
 				</div>
@@ -146,8 +179,9 @@ li button {
 									MOBILE NO<sup>*</sup>:
 								</h5></td>
 							<td><input type="number" class="form-control"
-								name="mobileNo" required placeholder="Enter valid mobile number" onblur="validateMobileNo()" /><b><span
-									id="isMobile" style="color: red;"></span></b></td>
+								name="mobileNo" required placeholder="Enter valid mobile number"
+								onblur="validateMobileNo()" /><b><span id="isMobile"
+									style="color: red;"></span></b></td>
 						</tr>
 
 						<tr>
@@ -165,14 +199,15 @@ li button {
 								</h5></td>
 							<td><input type="email" class="form-control" name="emailId"
 								required placeholder="Enter valid email id"
-								onblur="checkEmailExist()" /><b><span id="isE" style="color: red;"></span></b></td>
+								onblur="checkEmailExist()" /><b><span id="isE"
+									style="color: red;"></span></b></td>
 						</tr>
 
 						<tr>
 							<td><h5>
 									COURSE<sup>*</sup>:
 								</h5></td>
-							<td><select class="form-control" id="courses" name="course"></select> 
+							<td><select class="form-control" id="courses" name="course"></select>
 						</tr>
 
 						<tr>
@@ -181,8 +216,10 @@ li button {
 								</h5></td>
 							<td><select name="batchType"
 								class="custom-select custom-select-lg sm-3">
-									<option value="Weekend" label="Weekend" />
-									<option value="WeekDay" label="WeekDay" />
+									<option value="OnlineWeekend" label="OnlineWeekend" />
+									<option value="OnlineWeekDay" label="OnlineWeekDay" />
+									<option value="OfflineWeekend" label="OfflineWeekend" />
+									<option value="OfflineWeekDay" label="OfflineWeekDay" />
 							</select></td>
 						</tr>
 
@@ -190,13 +227,19 @@ li button {
 							<td><h5>
 									SOURCE<sup>*</sup>:
 								</h5></td>
-							<td><input type="text" class="form-control" required
-								name="source" placeholder="Enter source of information" /></td>
+							<td><select name="source"
+								class="custom-select custom-select-lg sm-3">
+									<option value="Facebook" label="Facebook" />
+									<option value="LinkedIn" label="LinkedIn" />
+									<option value="Instagram" label="Instagram" />
+									<option value="X-workZ Website" label="X-workZ Website" />
+									<option value="Friends Refrence" label="Friends Refrence" />
+							</select></td>
 						</tr>
 
 						<tr>
 							<td><h5>
-									REFRENCE<sup>*</sup>:
+									REFRENCE<sup></sup>:
 								</h5></td>
 							<td><input type="text" class="form-control"
 								name="refrenceName" placeholder="Enter refrence name" /></td>
@@ -304,24 +347,24 @@ li button {
 						</tr>
 					</table>
 				</form>
-	        </div>
-            </div>
-         <div>
+			</div>
+		</div>
+		<div>
 			<nav class="navbar navbar-expand-md navbar-dark bg-dark"></nav>
 		</div>
-	<!-- Latest compiled JavaScript -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script type="text/javascript"
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-	<script type="text/javascript" src="./js/index.js"></script>
+		<!-- Latest compiled JavaScript -->
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+			integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+			crossorigin="anonymous"></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+			integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+			crossorigin="anonymous"></script>
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script type="text/javascript"
+			src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+		<script type="text/javascript" src="./js/index.js"></script>
 </body>
 </html>

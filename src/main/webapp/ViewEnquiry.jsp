@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html >
 <html>
 <head>
@@ -40,55 +40,58 @@ label {
 			<div class="header-right">
 				<h1>Om's Development Center</h1>
 			</div>
-			<div style="align-content:flex-basis; width: 6%; margin-bottom: 0.5%;">
-				<button onclick="location.href='Home.jsp'" type="button"
-					class="btn btn-success btn-block"><i class="fa fa-home" aria-hidden="true"></i> Home</button>
-			</div>
-			
-			<div style="align-items: flex-end; width: 6%;">
-				<button onclick="location.href='EnquiryLogin.jsp'" type="button"
-					class="btn btn-danger btn-block"><i class="fa fa-sign-out" aria-hidden="true"></i> Log Out</button>
+			<div class="container">
+				<div class="row justify-content-end">
+					<div class="col-3 "
+						style="align-content: flex-basis;  margin-bottom: 0.5%;">
+						<button onclick="location.href='Home.jsp'" type="button" class="btn btn-success btn-block">
+							<i class="fa fa-home" aria-hidden="true"></i> Home</button>
+					</div>
+					<div class="col-3 " style="align-items: flex-end; ">
+						<button onclick="location.href='EnquiryLogin.jsp'" type="button" class="btn btn-danger btn-block">
+							<i class="fa fa-sign-out" aria-hidden="true"></i> Log Out</button>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="container">
 			<div class="container" align="center">
 				<div>
-					<nav class="navbar navbar navbar-dark bg-dark">
+					<nav class="navbar navbar-dark bg-dark">
 						<h3
 							style="color: white; font-weight: 900; width: 100%; align-items: center;">
 							<b>View Enquiries</b>
 						</h3>
 					</nav>
 				</div>
-				<div class="row"
+				<div class="row justify-content-center""
 					style="color: white; text-align: center; margin-top: 2%">
-					<div class="col-md-3"></div>
 					<div class="col-md-6">
 						<h3 style="color: red;">
 							<b>${msg}</b>
 						</h3>
 					</div>
-					<div class="col-md-3"></div>
 				</div>
 			</div>
 			<div class="container container_border ">
 				<div class="container" style="align-content: flex-start;">
-					
-					<form action="getCustomEnquiries.do" id ="viewEnquiry" class="getCustomEnquiries"
-						method="post">
+
+					<form action="getCustomEnquiries.do" id="viewEnquiry"
+						class="getCustomEnquiries" method="post">
 						<h3>Select Custom Dates Enquiries</h3>
 						<label> Select From Date: <input type="date"
 							name="fromDate" value="20-9-2018">
 						</label> <label> Select To Date: <input type="date" name="toDate"
 							id="today">
 						</label> <span><button class="btn btn-primary">Search</button></span>
-					</form>					
-			
-                    <form action="getLatestEnquiries.do" method="post" style="margin-bottom: 0.5%;">
-					   <button class="btn btn-primary">Latest 30 Enquiries</button>
-                     </form>
-					
-                     
+					</form>
+
+					<form action="getLatestEnquiries.do" method="post"
+						style="margin-bottom: 0.5%;">
+						<button class="btn btn-primary">Latest 30 Enquiries</button>
+					</form>
+
+
 					<table id="example" class="table table-striped table-bordered"
 						style="width: 100%">
 						<thead style="color: black; background-color: brown;">
@@ -115,7 +118,8 @@ label {
 							<c:forEach var="enquiryList" items="${enquiryList}">
 								<tr>
 									<td>${enquiryList.enquiryId}</td>
-									<td><fmt:formatDate type = "both" dateStyle = "short" timeStyle = "short" value = "${enquiryList.dateTime}"/></td>
+									<td><fmt:formatDate type="both" dateStyle="short"
+											timeStyle="short" value="${enquiryList.dateTime}" /></td>
 									<td>${enquiryList.fullName}</td>
 									<td>${enquiryList.mobileNo}</td>
 									<td>${enquiryList.alternateMobileNo}</td>
@@ -129,10 +133,10 @@ label {
 									<td>${enquiryList.counselor}</td>
 									<td>${enquiryList.comments}</td>
 									<td><form method="post" action="getEnquiryById.do">
-									    <input type="hidden" type="number" value="${enquiryList.enquiryId}" name="enquiryId"> 
-									    <button class="btn btn-success">Update</button>
-										</form>
-									</td>
+											<input type="hidden" type="number"
+												value="${enquiryList.enquiryId}" name="enquiryId">
+											<button class="btn btn-success">Update</button>
+										</form></td>
 								</tr>
 							</c:forEach>
 						<tfoot style="color: black; background-color: brown;">
