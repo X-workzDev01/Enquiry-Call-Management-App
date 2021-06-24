@@ -22,10 +22,10 @@ public class EnquiryDTO implements Serializable {
 	private String course;
 	private String batchType;
 	private String source;
-	private String branch;
 	private String refrenceName;
 	private String refrenceMobileNo;
-	private String counselor;
+	private String branch;
 	private String comments;
+	private String counselor;
 
 }
