@@ -106,21 +106,13 @@ public class EnquiryServiceImpl implements EnquiryService {
 		List<EnquiryDTO> enquiryList = null;
 		ByteArrayInputStream inputStream = null;
 		URI url = new URI(enquiryExcelFilelink);
-		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<byte[]> responseEntity = restTemplate.getForEntity(url, byte[].class);
-		if (Objects.nonNull(responseEntity)) {
-			byte[] result = responseEntity.getBody();
-
-			logger.debug("Staring..........");
-			inputStream = new ByteArrayInputStream(result);
-			if (Objects.nonNull(inputStream)) {
-				enquiryList = excelHelper.getEnquiryListFromInputStream(inputStream);
-				logger.debug("retuning enquiryList");
-				return enquiryList;
-			} else {
-				logger.debug("Not able to read the Excel File at time!");
-			}
-
+		inputStream = excelHelper.readExcelFile(url);
+		if (Objects.nonNull(inputStream)) {
+			enquiryList = excelHelper.getEnquiryListFromInputStream(inputStream);
+			logger.debug("retuning enquiryList");
+			return enquiryList;
+		} else {
+			logger.debug("Not able to read the Excel File at time!");
 		}
 		return null;
 	}

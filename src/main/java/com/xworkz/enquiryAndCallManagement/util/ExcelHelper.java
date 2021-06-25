@@ -1,6 +1,8 @@
 package com.xworkz.enquiryAndCallManagement.util;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.net.URI;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,7 +17,10 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
+
 import com.xworkz.enquiryAndCallManagement.dto.EnquiryDTO;
 
 @Component
@@ -25,6 +30,19 @@ public class ExcelHelper {
 
 	public ExcelHelper() {
 		logger.info("{} is created", this.getClass().getSimpleName());
+	}
+	
+	public ByteArrayInputStream readExcelFile(URI url){
+		ByteArrayInputStream inputStream = null;
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<byte[]> responseEntity = restTemplate.getForEntity(url, byte[].class);
+		if (Objects.nonNull(responseEntity)) {
+			byte[] result = responseEntity.getBody();
+
+			logger.debug("Staring..........");
+			inputStream = new ByteArrayInputStream(result);
+		}
+		return inputStream;
 	}
 
 	@SuppressWarnings("deprecation")
