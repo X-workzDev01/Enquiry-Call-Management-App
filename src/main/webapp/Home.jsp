@@ -126,6 +126,9 @@ li button {
 							</ul>
 						</div>
 					</div>
+					<div class = "row">
+						<p id="validateFieldmsg"></p>
+					</div>
 				</div>
 
 				<div class="callManagement">

@@ -29,6 +29,8 @@ public interface EnquiryService {
 
 	public EnquiryDTO getEnquiryByMobileNo(String mobileNo);
 
+	public String validateExcelFile();
+
 	
 
 }

@@ -44,6 +44,39 @@ public class ExcelHelper {
 		}
 		return inputStream;
 	}
+	
+	public List<String> getColumnHeading(InputStream inputStream) {
+		List<String> columnHeadingList = new ArrayList<String>();
+		try {
+			@SuppressWarnings("resource")
+			Workbook workbook = new XSSFWorkbook(inputStream);
+			Sheet excelSheet = workbook.getSheetAt(0);
+			logger.info("Excel file Is opened");
+			if (Objects.nonNull(excelSheet)) {
+				DataFormatter dataFormatter = new DataFormatter();
+				Row row = excelSheet.getRow(0);
+				columnHeadingList.add(dataFormatter.formatCellValue(row.getCell(EnquiryExcelFileColumn.TIMESTAMP, MissingCellPolicy.RETURN_BLANK_AS_NULL)));
+				columnHeadingList.add(dataFormatter.formatCellValue(row.getCell(EnquiryExcelFileColumn.NAME, MissingCellPolicy.RETURN_BLANK_AS_NULL)));
+				columnHeadingList.add(dataFormatter.formatCellValue(row.getCell(EnquiryExcelFileColumn.MOBILE, MissingCellPolicy.RETURN_BLANK_AS_NULL)));
+				columnHeadingList.add(dataFormatter.formatCellValue(row.getCell(EnquiryExcelFileColumn.ALTERNATE_MOBILE, MissingCellPolicy.RETURN_BLANK_AS_NULL)));
+				columnHeadingList.add(dataFormatter.formatCellValue(row.getCell(EnquiryExcelFileColumn.EMAIL_ID, MissingCellPolicy.RETURN_BLANK_AS_NULL)));
+				columnHeadingList.add(dataFormatter.formatCellValue(row.getCell(EnquiryExcelFileColumn.COURSE, MissingCellPolicy.RETURN_BLANK_AS_NULL)));
+				columnHeadingList.add(dataFormatter.formatCellValue(row.getCell(EnquiryExcelFileColumn.BATCH, MissingCellPolicy.RETURN_BLANK_AS_NULL)));
+				columnHeadingList.add(dataFormatter.formatCellValue(row.getCell(EnquiryExcelFileColumn.SOURCE, MissingCellPolicy.RETURN_BLANK_AS_NULL)));
+				columnHeadingList.add(dataFormatter.formatCellValue(row.getCell(EnquiryExcelFileColumn.REFRENCE, MissingCellPolicy.RETURN_BLANK_AS_NULL)));
+				columnHeadingList.add(dataFormatter.formatCellValue(row.getCell(EnquiryExcelFileColumn.REFRENCE_MOBILE, MissingCellPolicy.RETURN_BLANK_AS_NULL)));
+				columnHeadingList.add(dataFormatter.formatCellValue(row.getCell(EnquiryExcelFileColumn.BRANCH, MissingCellPolicy.RETURN_BLANK_AS_NULL)));
+				columnHeadingList.add(dataFormatter.formatCellValue(row.getCell(EnquiryExcelFileColumn.COMMENTS, MissingCellPolicy.RETURN_BLANK_AS_NULL)));
+				columnHeadingList.add(dataFormatter.formatCellValue(row.getCell(EnquiryExcelFileColumn.COUNSELOR, MissingCellPolicy.RETURN_BLANK_AS_NULL)));
+			} else {
+				logger.error("ExcelSheet is Empty!");
+			}
+			
+		}catch (Exception e) {
+			logger.error("error is {} and message is {}", e, e.getMessage());
+		}
+		return columnHeadingList;
+	}
 
 	@SuppressWarnings("deprecation")
 	public List<String> getContactListFromInputStream(InputStream inputStream) {
@@ -57,7 +90,7 @@ public class ExcelHelper {
 			// logger.info("Size of Excel is {}", excelSheet.getLastRowNum());
 			Row row;
 			for (int i = 0; i <= excelSheet.getLastRowNum(); i++) {
-				row = (Row) excelSheet.getRow(i);
+				row = excelSheet.getRow(i);
 				logger.debug("Data type is {}", row.getCell(0).getCellType());
 				if (row.getCell(0).getCellType() == 0) {
 					Long long1 = (long) row.getCell(0).getNumericCellValue();

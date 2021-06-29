@@ -2,6 +2,7 @@ package com.xworkz.enquiryAndCallManagement.service;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Timestamp;
@@ -235,4 +236,42 @@ public class EnquiryServiceImpl implements EnquiryService {
 		return enquiry;
 	}
 
+	@Override
+	public String validateExcelFile() {
+		String msg = null;
+		try {
+			
+			ByteArrayInputStream inputStream = null;
+			List<String> columnHeadings= null;
+			boolean valid = false;
+			Field field[]=EnquiryDTO.class.getDeclaredFields();
+			URI url = new URI(enquiryExcelFilelink);
+			inputStream = excelHelper.readExcelFile(url);
+			if (Objects.nonNull(inputStream)) {
+				columnHeadings=excelHelper.getColumnHeading(inputStream);
+			}
+			if (Objects.nonNull(columnHeadings) && Objects.nonNull(field)) {
+				if (columnHeadings.size() == field.length-2) {
+					for (int i = 2; i < field.length; i++) {
+						String columnHeading = columnHeadings.get(i-2);
+						String fieldName=field[i].getName();
+						if (columnHeading.equals(fieldName)) {
+							valid = true;
+						}else {
+							valid = false;
+							break;
+						}
+					}
+				}
+				if(valid) {
+					msg = "Excel file fields are match ";
+				}else {
+					msg = "Excel file is fiels are not match ";
+				}
+			}
+		}catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		return msg;
+	}
 }

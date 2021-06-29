@@ -82,6 +82,18 @@ public class EnquiryController {
 		return modelAndView.addObject("msg", "Bulk Enquiry Upload Incomplete! Check and Try Again.");
 
 	}
+	
+	@RequestMapping(value = "/validateExcelFields.do",method = RequestMethod.GET)
+	public String validateExcelFileFields() {
+		logger.debug("invoked validateExcelFileFields() in controller");
+		String msg = null;
+		try{
+			msg=enquiryService.validateExcelFile();
+		}catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		return msg;
+	}
 
 	@Scheduled(cron = "${cron.expression}")
 	@RequestMapping(value = "/downloadEnquirySchedule.do", method = RequestMethod.GET)

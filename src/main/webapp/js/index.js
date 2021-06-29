@@ -80,6 +80,17 @@ function openkFunc(mainclass,subclass){
 	$('.'+subclass).show();
 }
 
+$(document).ready(function() {
+	var contextPath = $("meta[name='contextPath']").attr("content");
+	$.ajax({  
+    	type: "GET",  
+		url: contextPath + "/validateExcelFields.do",  
+		success: function (data) {
+			$("#validateFieldmsg").html(data);  
+		}  
+	});  
+});
+
 function checkEmailExist() {
 	var contextPath = $("meta[name='contextPath']").attr("content");
 	var EnquiryDTO = {};
