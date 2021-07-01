@@ -50,7 +50,7 @@ li button {
 </style>
 </head>
 
-<body onload="loadCourses()">
+<body onload="loadData()"> <!-- loadCourses() --> 
 
 	<div class="backgroundImage">
 		<div class="header">
@@ -95,12 +95,12 @@ li button {
 				</div>
 			</div>
 
-			<div class="container container_border ">
-				<div class="enquiryManagement" style="margin-bottom: 10%;">
+			<div class="container container_border " >
+				<div class="enquiryManagement" style="margin-bottom: 10%;" >
 					<h2 align="center"
 						style="margin-top: 5%; color: white; padding-top: 3%">Enquiry
 						Management</h2>
-					<div class="panel panel-default">
+					<div class="panel panel-default row">
 						<div class="panel-body" align="center" style="margin-left: 20%;">
 							<ul>
 								<li><button type="button" class="btn btn-primary"
@@ -126,11 +126,12 @@ li button {
 							</ul>
 						</div>
 					</div>
-					<div class = "row">
-						<p id="validateFieldmsg"></p>
+					<div class ="row justify-content-center" style="color :red; margin-top: 2%; ">
+						<h3 id="validateFieldmsg"></h3>
 					</div>
+				
 				</div>
-
+				
 				<div class="callManagement">
 					<h2 align="center"
 						style="margin-top: 5%; color: white; padding-top: 3%">Call

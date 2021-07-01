@@ -18,7 +18,6 @@
 </head>
 
 <body>
-
 	<div class="backgroundImage">
 		<div class="header">
 			<a href="" class="logo"><img src="./img/Logo.png" height="90px"></a>

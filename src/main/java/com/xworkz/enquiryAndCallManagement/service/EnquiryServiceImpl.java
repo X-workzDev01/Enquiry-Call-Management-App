@@ -259,14 +259,14 @@ public class EnquiryServiceImpl implements EnquiryService {
 							valid = true;
 						}else {
 							valid = false;
-							break;
+							//break;
 						}
 					}
 				}
 				if(valid) {
 					msg = "Excel file fields are match ";
 				}else {
-					msg = "Excel file is fiels are not match ";
+					msg = "Excel file fiels are not match ";
 				}
 			}
 		}catch (Exception e) {
