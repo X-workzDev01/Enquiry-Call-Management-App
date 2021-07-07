@@ -12,7 +12,6 @@ public class EnquiryDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-
 	private int enquiryId;
 	private Timestamp dateTime;
 	private String fullName;

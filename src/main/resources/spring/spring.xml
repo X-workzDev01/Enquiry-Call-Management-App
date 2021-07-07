@@ -59,7 +59,8 @@
 		<property name="locations">
 		<list>
 		    <value>/WEB-INF/classes/prop/mailChimp.properties</value>
-			<value>WEB-INF/classes/prop/database.properties</value>
+		    <value>/WEB-INF/classes/prop/excelFileField.properties</value>
+			<value>/WEB-INF/classes/prop/database.properties</value>
 			<value>/WEB-INF/classes/prop/httpConnection.properties</value>	
 		</list>
 		</property>

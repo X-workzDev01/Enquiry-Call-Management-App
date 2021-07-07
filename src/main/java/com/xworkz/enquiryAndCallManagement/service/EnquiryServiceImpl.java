@@ -7,6 +7,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import org.slf4j.Logger;
@@ -39,7 +40,7 @@ public class EnquiryServiceImpl implements EnquiryService {
 
 	@Value("${enquiryFilelink}")
 	private String enquiryExcelFilelink;
-
+	
 	public EnquiryServiceImpl() {
 		logger.debug("created " + this.getClass().getSimpleName());
 	}
@@ -243,23 +244,22 @@ public class EnquiryServiceImpl implements EnquiryService {
 			
 			ByteArrayInputStream inputStream = null;
 			List<String> columnHeadings= null;
+			List<String> fieldsInProp= null;
 			boolean valid = false;
-			Field field[]=EnquiryDTO.class.getDeclaredFields();
 			URI url = new URI(enquiryExcelFilelink);
 			inputStream = excelHelper.readExcelFile(url);
 			if (Objects.nonNull(inputStream)) {
 				columnHeadings=excelHelper.getColumnHeading(inputStream);
 			}
-			if (Objects.nonNull(columnHeadings) && Objects.nonNull(field)) {
-				if (columnHeadings.size() == field.length-2) {
-					for (int i = 2; i < field.length; i++) {
-						String columnHeading = columnHeadings.get(i-2);
-						String fieldName=field[i].getName();
-						if (columnHeading.equals(fieldName)) {
+			fieldsInProp=excelHelper.getFieldsNameFromPropertiesFile();
+			if (Objects.nonNull(columnHeadings) && Objects.nonNull(fieldsInProp)) {
+				if (columnHeadings.size() == fieldsInProp.size()) {
+					for (int i = 0; i < columnHeadings.size(); i++) {
+						if (columnHeadings.contains(fieldsInProp.get(i))) {
 							valid = true;
 						}else {
 							valid = false;
-							//break;
+							break;
 						}
 					}
 				}

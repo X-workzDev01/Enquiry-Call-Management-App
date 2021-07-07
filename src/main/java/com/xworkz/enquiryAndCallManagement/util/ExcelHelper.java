@@ -1,6 +1,9 @@
 package com.xworkz.enquiryAndCallManagement.util;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.text.ParseException;
@@ -9,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Properties;
+import java.util.Set;
+
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Row.MissingCellPolicy;
@@ -55,19 +61,10 @@ public class ExcelHelper {
 			if (Objects.nonNull(excelSheet)) {
 				DataFormatter dataFormatter = new DataFormatter();
 				Row row = excelSheet.getRow(0);
-				columnHeadingList.add(dataFormatter.formatCellValue(row.getCell(EnquiryExcelFileColumn.TIMESTAMP, MissingCellPolicy.RETURN_BLANK_AS_NULL)));
-				columnHeadingList.add(dataFormatter.formatCellValue(row.getCell(EnquiryExcelFileColumn.NAME, MissingCellPolicy.RETURN_BLANK_AS_NULL)));
-				columnHeadingList.add(dataFormatter.formatCellValue(row.getCell(EnquiryExcelFileColumn.MOBILE, MissingCellPolicy.RETURN_BLANK_AS_NULL)));
-				columnHeadingList.add(dataFormatter.formatCellValue(row.getCell(EnquiryExcelFileColumn.ALTERNATE_MOBILE, MissingCellPolicy.RETURN_BLANK_AS_NULL)));
-				columnHeadingList.add(dataFormatter.formatCellValue(row.getCell(EnquiryExcelFileColumn.EMAIL_ID, MissingCellPolicy.RETURN_BLANK_AS_NULL)));
-				columnHeadingList.add(dataFormatter.formatCellValue(row.getCell(EnquiryExcelFileColumn.COURSE, MissingCellPolicy.RETURN_BLANK_AS_NULL)));
-				columnHeadingList.add(dataFormatter.formatCellValue(row.getCell(EnquiryExcelFileColumn.BATCH, MissingCellPolicy.RETURN_BLANK_AS_NULL)));
-				columnHeadingList.add(dataFormatter.formatCellValue(row.getCell(EnquiryExcelFileColumn.SOURCE, MissingCellPolicy.RETURN_BLANK_AS_NULL)));
-				columnHeadingList.add(dataFormatter.formatCellValue(row.getCell(EnquiryExcelFileColumn.REFRENCE, MissingCellPolicy.RETURN_BLANK_AS_NULL)));
-				columnHeadingList.add(dataFormatter.formatCellValue(row.getCell(EnquiryExcelFileColumn.REFRENCE_MOBILE, MissingCellPolicy.RETURN_BLANK_AS_NULL)));
-				columnHeadingList.add(dataFormatter.formatCellValue(row.getCell(EnquiryExcelFileColumn.BRANCH, MissingCellPolicy.RETURN_BLANK_AS_NULL)));
-				columnHeadingList.add(dataFormatter.formatCellValue(row.getCell(EnquiryExcelFileColumn.COMMENTS, MissingCellPolicy.RETURN_BLANK_AS_NULL)));
-				columnHeadingList.add(dataFormatter.formatCellValue(row.getCell(EnquiryExcelFileColumn.COUNSELOR, MissingCellPolicy.RETURN_BLANK_AS_NULL)));
+				int columns = row.getLastCellNum();
+				for (int i = 0; i < columns; i++) {
+					columnHeadingList.add(dataFormatter.formatCellValue(row.getCell(i,MissingCellPolicy.RETURN_BLANK_AS_NULL)));
+				}
 			} else {
 				logger.error("ExcelSheet is Empty!");
 			}
@@ -76,6 +73,25 @@ public class ExcelHelper {
 			logger.error("error is {} and message is {}", e, e.getMessage());
 		}
 		return columnHeadingList;
+	}
+	
+	public List<String> getFieldsNameFromPropertiesFile(){
+		List<String> FieldsName = new ArrayList<String>();
+		try {
+			Properties prop = new Properties();
+			FileReader reader=new FileReader("/src/main/resources/prop/excelFileField.properties");
+			//InputStream inputStream =this.getClass().getResourceAsStream("/excelFileField.properties");
+			prop.load(reader);
+			Set<Object> keys = prop.keySet();
+			for(Object k:keys){
+				FieldsName.add(prop.getProperty((String)k));
+			}
+		} catch (FileNotFoundException e) {
+			logger.error("error is {} and message is {}", e, e.getMessage());
+		} catch (IOException e) {
+			logger.error("error is {} and message is {}", e, e.getMessage());
+		}
+		return FieldsName;
 	}
 
 	@SuppressWarnings("deprecation")

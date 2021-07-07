@@ -117,13 +117,10 @@ public class EnquiryController {
 			} else {
 				logger.info("Is file is Empty :{}", enquiryList.isEmpty());
 			}
-
 		} catch (URISyntaxException | IOException e) {
 			logger.error(e.getMessage(), e);
 		}
-
 		return modelAndView.addObject("msg", "Bulk Enquiry Reading Incomplete! Check and Try Again.");
-
 	}
 
 	@RequestMapping(value = "/getLatestEnquiries.do", method = RequestMethod.POST)
