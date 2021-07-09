@@ -2,23 +2,21 @@ package com.xworkz.enquiryAndCallManagement.service;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
+
 import com.xworkz.enquiryAndCallManagement.dao.EnquiryDAO;
 import com.xworkz.enquiryAndCallManagement.dto.EnquiryDTO;
 import com.xworkz.enquiryAndCallManagement.entity.EnquiryEntity;
@@ -40,7 +38,37 @@ public class EnquiryServiceImpl implements EnquiryService {
 
 	@Value("${enquiryFilelink}")
 	private String enquiryExcelFilelink;
-	
+
+	@Value("$fileField.totalFields")
+	private String totalExcelFileFields;
+
+	@Value("$fileField.field1")
+	private String field1;
+	@Value("$fileField.field2")
+	private String field2;
+	@Value("$fileField.field3")
+	private String field3;
+	@Value("$fileField.field4")
+	private String field4;
+	@Value("$fileField.field5")
+	private String field5;
+	@Value("$fileField.field6")
+	private String field6;
+	@Value("$fileField.field7")
+	private String field7;
+	@Value("$fileField.field8")
+	private String field8;
+	@Value("$fileField.field9")
+	private String field9;
+	@Value("$fileField.field10")
+	private String field10;
+	@Value("$fileField.field11")
+	private String field11;
+	@Value("$fileField.field12")
+	private String field12;
+	@Value("$fileField.field13")
+	private String field13;
+
 	public EnquiryServiceImpl() {
 		logger.debug("created " + this.getClass().getSimpleName());
 	}
@@ -52,10 +80,10 @@ public class EnquiryServiceImpl implements EnquiryService {
 			EnquiryEntity entity = new EnquiryEntity();
 			EnquiryEntity entity2 = enquiryDAO.getEnquiryByFullName(dto.getFullName());
 			if (!Objects.nonNull(entity2)) {
-				entity2=enquiryDAO.getEnquiryByMobileNo(dto.getMobileNo());
-				if(!Objects.nonNull(entity2)) {
-					entity2=enquiryDAO.checkEnquiryByEmail(dto.getEmailId());
-					if(!Objects.nonNull(entity2)) {
+				entity2 = enquiryDAO.getEnquiryByMobileNo(dto.getMobileNo());
+				if (!Objects.nonNull(entity2)) {
+					entity2 = enquiryDAO.checkEnquiryByEmail(dto.getEmailId());
+					if (!Objects.nonNull(entity2)) {
 						BeanUtils.copyProperties(dto, entity);
 						logger.debug("Data are valid..ready to save");
 						boolean isSaved = enquiryDAO.saveEnquiry(entity);
@@ -241,35 +269,39 @@ public class EnquiryServiceImpl implements EnquiryService {
 	public String validateExcelFile() {
 		String msg = null;
 		try {
-			
+
 			ByteArrayInputStream inputStream = null;
-			List<String> columnHeadings= null;
-			List<String> fieldsInProp= null;
+			List<String> columnHeadings = null;
+			// List<String> fieldsInProp= null;
 			boolean valid = false;
 			URI url = new URI(enquiryExcelFilelink);
 			inputStream = excelHelper.readExcelFile(url);
 			if (Objects.nonNull(inputStream)) {
-				columnHeadings=excelHelper.getColumnHeading(inputStream);
+				columnHeadings = excelHelper.getColumnHeading(inputStream);
 			}
-			fieldsInProp=excelHelper.getFieldsNameFromPropertiesFile();
-			if (Objects.nonNull(columnHeadings) && Objects.nonNull(fieldsInProp)) {
-				if (columnHeadings.size() == fieldsInProp.size()) {
-					for (int i = 0; i < columnHeadings.size(); i++) {
-						if (columnHeadings.contains(fieldsInProp.get(i))) {
-							valid = true;
-						}else {
-							valid = false;
-							break;
-						}
+			// fieldsInProp=excelHelper.getFieldsNameFromPropertiesFile();
+			if (Objects.nonNull(columnHeadings) && Objects.nonNull(totalExcelFileFields)) {
+				if (columnHeadings.size() == Integer.parseInt(totalExcelFileFields)) {
+					if (columnHeadings.contains(field1) && columnHeadings.contains(field2)
+							&& columnHeadings.contains(field3) && columnHeadings.contains(field4)
+							&& columnHeadings.contains(field5) && columnHeadings.contains(field6)
+							&& columnHeadings.contains(field7) && columnHeadings.contains(field8)
+							&& columnHeadings.contains(field9) && columnHeadings.contains(field10)
+							&& columnHeadings.contains(field11) && columnHeadings.contains(field12)
+							&& columnHeadings.contains(field13)) {
+						valid = true;
+					} else {
+						valid = false;
 					}
 				}
-				if(valid) {
-					msg = "Excel file fields are match ";
-				}else {
-					msg = "Excel file fiels are not match ";
-				}
 			}
-		}catch (Exception e) {
+			if (valid) {
+				msg = "Excel file fields are match ";
+			} else {
+				msg = "Excel file fiels are not match ";
+			}
+
+		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
 		return msg;

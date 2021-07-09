@@ -1,6 +1,8 @@
 package com.xworkz.enquiryAndCallManagement.util;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -75,24 +77,28 @@ public class ExcelHelper {
 		return columnHeadingList;
 	}
 	
-	public List<String> getFieldsNameFromPropertiesFile(){
-		List<String> FieldsName = new ArrayList<String>();
-		try {
-			Properties prop = new Properties();
-			FileReader reader=new FileReader("/src/main/resources/prop/excelFileField.properties");
-			//InputStream inputStream =this.getClass().getResourceAsStream("/excelFileField.properties");
-			prop.load(reader);
-			Set<Object> keys = prop.keySet();
-			for(Object k:keys){
-				FieldsName.add(prop.getProperty((String)k));
-			}
-		} catch (FileNotFoundException e) {
-			logger.error("error is {} and message is {}", e, e.getMessage());
-		} catch (IOException e) {
-			logger.error("error is {} and message is {}", e, e.getMessage());
-		}
-		return FieldsName;
-	}
+//	public List<String> getFieldsNameFromPropertiesFile(){
+//		List<String> FieldsName = new ArrayList<String>();
+//		try {
+//			Properties prop = new Properties();
+//			String f = new File("/resources/prop/excelFileField.properties").getAbsolutePath();
+//		//	FileReader inputStream=new FileReader(f);
+//		//	FileInputStream inputStream1 = new FileInputStream(f);
+//			
+//			InputStream inputStream2 =this.getClass().getResourceAsStream(f);
+//			prop.load(inputStream2);
+//			Set<Object> keys = prop.keySet();
+//			for(Object k:keys){
+//				FieldsName.add(prop.getProperty((String)k));
+//			}
+//		} catch (FileNotFoundException e) {
+//			logger.error("error is {} and message is {}", e, e.getMessage());
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			logger.error("error is {} and message is {}", e, e.getMessage());
+//		}
+//		return FieldsName;
+//	}
 
 	@SuppressWarnings("deprecation")
 	public List<String> getContactListFromInputStream(InputStream inputStream) {
@@ -193,4 +199,10 @@ public class ExcelHelper {
 		}
 		return enquiryList;
 	}
+	
+//	public static void main(String[] args) {
+//		ExcelHelper helper = new ExcelHelper();
+//	//	logger.info(new java.io.File("/WEB-INF/classes/prop/excelFileField.properties").getAbsolutePath());
+//		helper.getFieldsNameFromPropertiesFile();
+//	}
 }
