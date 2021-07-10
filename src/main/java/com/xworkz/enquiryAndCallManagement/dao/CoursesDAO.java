@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface CoursesDAO {
 	
-	public List getAllCourses();
+	public List<String> getAllCourses();
 
 }

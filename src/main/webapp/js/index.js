@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    allHide();
 	$('.newEnquiry').hide();
 	$('.getCloudEnquiries').hide();
 	$('.getlatestEnquiries').hide();
@@ -11,7 +10,8 @@ $(document).ready(function () {
 
 let getDropdown  = () => fetch('https://raw.githubusercontent.com/xworkzodc/newsfeed/master/mailSender.json').then(data => data.json());
 
-function hideMainTab(){	
+function hideMainTab(){
+	$('.loginMessages').hide();
 	$('.getlatestEnquiries').hide();
 	$('.getCloudEnquiries').hide();
 	$('.enquiryManagement').hide();
@@ -76,6 +76,7 @@ function openkFunc(mainclass,subclass){
 	console.log("called clickFunc="+mainclass+" sub:"+subclass);
 	hideMainTab();
 	allHide();
+	$('.validateExcelfile').hide();
 	$('.'+mainclass).show();
 	$('.'+subclass).show();
 }

@@ -58,7 +58,7 @@ li button {
 			<div class="header-right">
 				<h1>Om's Development Center</h1>
 			</div>
-			<div style="align-items: flex-end; width: 8%;">
+			<div style="margin-left: auto; margin-right: 5%; width: 10%;">
 				<button onclick="location.href='EnquiryLogin.jsp'" type="button"
 					class="btn btn-danger btn-block">
 					<i class="fa fa-sign-out" aria-hidden="true"></i> Log Out
@@ -69,7 +69,6 @@ li button {
 		<div class="container">
 			<div>
 				<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-
 					<div class="collapse navbar-collapse" id="navbarsExample04">
 						<ul class="navbar-nav mr-auto">
 							<li class="nav-item"><a class="nav-link" href="#"
@@ -81,17 +80,16 @@ li button {
 					</div>
 				</nav>
 			</div>
-
-			<div class="container" align="center">
-				<div class="row"
-					style="color: white; text-align: center; margin-top: 2%">
-					<div class="col-md-3"></div>
-					<div class="col-md-6">
-						<h3 style="color: red;">
-							<b>${LoginMsg}${success}${faild}${msg}</b>
-						</h3>
+			<div class = "loginMessages">
+				<div class="container" align="center">
+					<div class="row" style="color: white; text-align: center; margin-top: 2%">
+						<div class="col align-self-center">
+							<h3 style="color: red;">
+								<b>${LoginMsg}${success}${faild}${msg}</b>
+							</h3>
+						</div>
+						
 					</div>
-					<div class="col-md-3"></div>
 				</div>
 			</div>
 
@@ -126,8 +124,10 @@ li button {
 							</ul>
 						</div>
 					</div>
-					<div class ="row justify-content-center" style="color :red; margin-top: 2%; ">
-						<h3 id="validateFieldmsg"></h3>
+					<div class = "validateExcelfile">
+						<div class ="row justify-content-center" style="color :red; margin-top: 2%; ">
+							<h3 id="validateFieldmsg"></h3>
+						</div>
 					</div>
 				
 				</div>

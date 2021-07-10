@@ -39,34 +39,34 @@ public class EnquiryServiceImpl implements EnquiryService {
 	@Value("${enquiryFilelink}")
 	private String enquiryExcelFilelink;
 
-	@Value("$fileField.totalFields")
-	private String totalExcelFileFields;
+	@Value("${fileField.totalFields}")
+	private int totalExcelFileFields;
 
-	@Value("$fileField.field1")
+	@Value("${fileField.field1}")
 	private String field1;
-	@Value("$fileField.field2")
+	@Value("${fileField.field2}")
 	private String field2;
-	@Value("$fileField.field3")
+	@Value("${fileField.field3}")
 	private String field3;
-	@Value("$fileField.field4")
+	@Value("${fileField.field4}")
 	private String field4;
-	@Value("$fileField.field5")
+	@Value("${fileField.field5}")
 	private String field5;
-	@Value("$fileField.field6")
+	@Value("${fileField.field6}")
 	private String field6;
-	@Value("$fileField.field7")
+	@Value("${fileField.field7}")
 	private String field7;
-	@Value("$fileField.field8")
+	@Value("${fileField.field8}")
 	private String field8;
-	@Value("$fileField.field9")
+	@Value("${fileField.field9}")
 	private String field9;
-	@Value("$fileField.field10")
+	@Value("${fileField.field10}")
 	private String field10;
-	@Value("$fileField.field11")
+	@Value("${fileField.field11}")
 	private String field11;
-	@Value("$fileField.field12")
+	@Value("${fileField.field12}")
 	private String field12;
-	@Value("$fileField.field13")
+	@Value("${fileField.field13}")
 	private String field13;
 
 	public EnquiryServiceImpl() {
@@ -266,14 +266,13 @@ public class EnquiryServiceImpl implements EnquiryService {
 	}
 
 	@Override
-	public String validateExcelFile() {
-		String msg = null;
+	public boolean validateExcelFile() {
+		boolean valid = false;
 		try {
 
 			ByteArrayInputStream inputStream = null;
 			List<String> columnHeadings = null;
 			// List<String> fieldsInProp= null;
-			boolean valid = false;
 			URI url = new URI(enquiryExcelFilelink);
 			inputStream = excelHelper.readExcelFile(url);
 			if (Objects.nonNull(inputStream)) {
@@ -281,7 +280,7 @@ public class EnquiryServiceImpl implements EnquiryService {
 			}
 			// fieldsInProp=excelHelper.getFieldsNameFromPropertiesFile();
 			if (Objects.nonNull(columnHeadings) && Objects.nonNull(totalExcelFileFields)) {
-				if (columnHeadings.size() == Integer.parseInt(totalExcelFileFields)) {
+				if (columnHeadings.size() == totalExcelFileFields) {
 					if (columnHeadings.contains(field1) && columnHeadings.contains(field2)
 							&& columnHeadings.contains(field3) && columnHeadings.contains(field4)
 							&& columnHeadings.contains(field5) && columnHeadings.contains(field6)
@@ -295,15 +294,11 @@ public class EnquiryServiceImpl implements EnquiryService {
 					}
 				}
 			}
-			if (valid) {
-				msg = "Excel file fields are match ";
-			} else {
-				msg = "Excel file fiels are not match ";
-			}
+		
 
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
-		return msg;
+		return valid;
 	}
 }

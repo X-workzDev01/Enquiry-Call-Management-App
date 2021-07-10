@@ -21,9 +21,9 @@ public class CoursesDAOImpl implements CoursesDAO {
 	private SessionFactory factory;
 
 	@Override
-	public List getAllCourses() {
+	public List<String> getAllCourses() {
 		logger.info("Invoking {}");
-		List list = new ArrayList();
+		List<String> list = new ArrayList<String>();
 		Session session = null;
 		try {
 			logger.info("inside try block");

@@ -20,15 +20,15 @@ public class CoursesServiceImpl implements CoursesService{
 	private CoursesDAO coursesDAO;
 	
 	@Override
-	public List getAllCourses() {
-		List list = null;
+	public List<String> getAllCourses() {
+		List<String> list = null;
 		try {
 			list = coursesDAO.getAllCourses();
 			if(Objects.nonNull(list)) {
 				logger.debug("get all the courses");
 			}else {
 				logger.debug("Courses not available");
-				list = new ArrayList();
+				list = new ArrayList<String>();
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);

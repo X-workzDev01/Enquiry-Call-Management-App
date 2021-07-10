@@ -86,9 +86,15 @@ public class EnquiryController {
 	@RequestMapping(value = "/validateExcelFields.do",method = RequestMethod.GET)
 	public String validateExcelFileFields() {
 		logger.debug("invoked validateExcelFileFields() in controller");
+		boolean valid = false;
 		String msg = null;
 		try{
-			msg=enquiryService.validateExcelFile();
+			valid=enquiryService.validateExcelFile();
+			if (valid) {
+				msg = "Excel file fields are match ";
+			} else {
+				msg = "Excel file fiels are not match ";
+			}
 		}catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
@@ -103,20 +109,26 @@ public class EnquiryController {
 		try {
 			List<EnquiryDTO> enquiryList = enquiryService.downloadEnquiry();
 			logger.debug("Downalod Enquiry Task Exccution Done");
-			if (Objects.nonNull(enquiryList)) {
-				for (EnquiryDTO enquiryDTO : enquiryList) {
-					if (Objects.nonNull(enquiryDTO)) {
-						enquiryService.validateAndSaveEnquiry(enquiryDTO);
-						logger.info("Enquiry Read from cloud doc and Saved Successfully");
-					} else {
-						logger.info("The Enquiry has empty values");
+			boolean valid=enquiryService.validateExcelFile();
+			if (valid) {
+				if (Objects.nonNull(enquiryList)) {
+					for (EnquiryDTO enquiryDTO : enquiryList) {
+						if (Objects.nonNull(enquiryDTO)) {
+							enquiryService.validateAndSaveEnquiry(enquiryDTO);
+							logger.info("Enquiry Read from cloud doc and Saved Successfully");
+						} else {
+							logger.info("The Enquiry has empty values");
 
+						}
 					}
+					return modelAndView.addObject("msg", "Bulk Enquiry Read and Saved Successfully");
+				} else {
+					logger.info("Is file is Empty :{}", enquiryList.isEmpty());
 				}
-				return modelAndView.addObject("msg", "Bulk Enquiry Read and Saved Successfully");
-			} else {
-				logger.info("Is file is Empty :{}", enquiryList.isEmpty());
+			}else {
+				return modelAndView.addObject("msg", "Bulk Enquiry Reading Incomplete! Because of Excel file fiels are not match ");
 			}
+			
 		} catch (URISyntaxException | IOException e) {
 			logger.error(e.getMessage(), e);
 		}
@@ -240,9 +252,9 @@ public class EnquiryController {
 	
 	@RequestMapping(value = "getAllCourses.do", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public List getAllCourses() {
+	public List<String> getAllCourses() {
 		logger.info("invoked getAllCourses() in controller");
-		List list = null;
+		List<String> list = null;
 		try {
 			list = coursesService.getAllCourses();
 			if (Objects.nonNull(list)) {

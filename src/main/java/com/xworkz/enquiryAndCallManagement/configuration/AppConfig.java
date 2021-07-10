@@ -34,7 +34,6 @@ public class AppConfig {
 		javaMailProperties.put("mail.transport.protocol", "smtp");
 		javaMailProperties.put("mail.debug", "true");
 		
-		
 		mailSender.setJavaMailProperties(javaMailProperties);
 		return mailSender;
 	}
